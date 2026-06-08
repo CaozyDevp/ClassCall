@@ -27,12 +27,12 @@ namespace ClassCall.Teacher.ViewModels
         }
         private Subjects _selectedSubject = Subjects.None;
 
-        public int SelectedGradeIndex
+        public SchoolGrades SelectedGrade
         {
-            get => _selectedGradeIndex;
-            set => SetProperty(ref _selectedGradeIndex, value);
+            get => _selectedGrade;
+            set => SetProperty(ref _selectedGrade, value);
         }
-        private int _selectedGradeIndex = -1;
+        private SchoolGrades _selectedGrade;
 
         public int SelectedClassroomIndex
         {
@@ -84,14 +84,13 @@ namespace ClassCall.Teacher.ViewModels
                 }
 
                 var classNum = SelectedClassroomIndex + 1;
-                var grade = GetGrade();
-                if (grade == null)
+                if (SelectedGrade == default)
                 {
                     MessageBox.Show("请选择正确的年级", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                var address = ClassroomMap.GetAddress(new Core.ClassInfo((SchoolGrades)grade, classNum));
+                var address = ClassroomMap.GetAddress(new Core.ClassInfo(SelectedGrade, classNum));
 
                 using (var sender = new NotifySender(privateKey, TeacherName, SelectedSubject, IPAddress.Broadcast))
                 {
@@ -145,27 +144,6 @@ namespace ClassCall.Teacher.ViewModels
             }
 
             return true;
-        }
-
-        private SchoolGrades? GetGrade()
-        {
-            switch (SelectedGradeIndex)
-            {
-                case 0:
-                    return SchoolGrades.Junior1;
-                case 1:
-                    return SchoolGrades.Senior2;
-                case 2:
-                    return SchoolGrades.Junior3;
-                case 3:
-                    return SchoolGrades.Senior1;
-                case 4:
-                    return SchoolGrades.Senior2;
-                case 5:
-                    return SchoolGrades.Senior3;
-                default:
-                    return null;
-            }
         }
 
         private bool SaveConfig()

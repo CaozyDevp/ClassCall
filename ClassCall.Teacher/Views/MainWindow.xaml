@@ -28,6 +28,7 @@
 
         <convt:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
         <ex:EnumBindingSource x:Key="SubjectsSource" EnumType="{x:Type enums:Subjects}"/>
+        <ex:EnumBindingSource x:Key="SchoolGradesSource" EnumType="{x:Type enums:SchoolGrades}"/>
     </Window.Resources>
 
     <Window.DataContext>
@@ -123,8 +124,14 @@
                               Height="30"
                               Width="180"
                               HorizontalAlignment="Left"
-                              SelectedIndex="{Binding SelectedGradeIndex}"
-                              ItemsSource="{Binding Grades}"/>
+                              SelectedItem="{Binding SelectedGrade}"
+                              ItemsSource="{Binding Source={StaticResource SchoolGradesSource}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
 
                     <TextBlock Grid.Column="2"
                                Text="班级"
