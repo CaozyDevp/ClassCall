@@ -3,7 +3,6 @@ using System.Net;
 using ClassCall.Mvvm;
 using ClassCall.Core.Services;
 using System.Threading.Tasks;
-using ClassCall.Core.EnumExtensions;
 using System.Windows;
 using System.Windows.Input;
 using ClassCall.Core.Constants;
@@ -21,12 +20,12 @@ namespace ClassCall.Teacher.ViewModels
         }
         private string _teacherName = string.Empty;
 
-        public int SelectedSubjectIndex
+        public Subjects SelectedSubject
         {
-            get => _selectedSubjectIndex;
-            set => SetProperty(ref _selectedSubjectIndex, value);
+            get => _selectedSubject;
+            set => SetProperty(ref _selectedSubject, value);
         }
-        private int _selectedSubjectIndex = -1;
+        private Subjects _selectedSubject = Subjects.None;
 
         public int SelectedGradeIndex
         {
@@ -56,8 +55,6 @@ namespace ClassCall.Teacher.ViewModels
         }
         private string _ipString = string.Empty;
 
-        public List<string> Subjects => (List<string>)SchoolConstants.Subjects;
-
         public List<string> Classrooms => (List<string>)SchoolConstants.Classrooms;
 
         public List<string> Grades => (List<string>)SchoolConstants.Grades;
@@ -80,8 +77,7 @@ namespace ClassCall.Teacher.ViewModels
 
             try
             {
-                var subject = SubjectsExtension.GetSubject(Subjects[SelectedSubjectIndex]);
-                if (subject == null)
+                if (SelectedSubject == Subjects.None)
                 {
                     MessageBox.Show("请选择正确的科目", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -97,7 +93,7 @@ namespace ClassCall.Teacher.ViewModels
 
                 var address = ClassroomMap.GetAddress(new Core.ClassInfo((SchoolGrades)grade, classNum));
 
-                using (var sender = new NotifySender(privateKey, TeacherName, (Core.Enums.Subjects)subject, IPAddress.Broadcast))
+                using (var sender = new NotifySender(privateKey, TeacherName, SelectedSubject, IPAddress.Broadcast))
                 {
                     var result = await sender.SendAsync(new List<string>() { address }, Content);
                     if (result != null && result.Count > 0 && result[0] == address)
@@ -125,8 +121,7 @@ namespace ClassCall.Teacher.ViewModels
         public void Init()
         {
             TeacherName = Configuration.Config.TeacherName;
-            var subject = SubjectsExtension.GetName(Configuration.Config.Subject);
-            SelectedSubjectIndex = Subjects.IndexOf(subject);
+            SelectedSubject = Configuration.Config.Subject;
         }
 
         private bool CheckInput()
@@ -143,7 +138,7 @@ namespace ClassCall.Teacher.ViewModels
                 return false;
             }
 
-            if (SelectedSubjectIndex < 0 || SelectedSubjectIndex >= Subjects.Count)
+            if (SelectedSubject == Subjects.None)
             {
                 MessageBox.Show("请选择科目", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
@@ -176,7 +171,7 @@ namespace ClassCall.Teacher.ViewModels
         private bool SaveConfig()
         {
             Configuration.Config.TeacherName = TeacherName;
-            Configuration.Config.Subject = (Subjects)SubjectsExtension.GetSubject(Subjects[SelectedSubjectIndex]);
+            Configuration.Config.Subject = SelectedSubject;
             return Configuration.SaveConfig();
         }
     }

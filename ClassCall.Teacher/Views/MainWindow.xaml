@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ClassCall.Teacher.ViewModels"
         xmlns:local="clr-namespace:ClassCall.Teacher.Views"
+        xmlns:enums="clr-namespace:ClassCall.Core.Enums;assembly=ClassCall.Core"
+        xmlns:convt="clr-namespace:ClassCall.Core.Converters;assembly=ClassCall.Core"
+        xmlns:ex="clr-namespace:ClassCall.Core.Extensions;assembly=ClassCall.Core"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="教室呼叫系统" Height="620" Width="600">
@@ -22,6 +25,9 @@
             <Setter Property="Margin" Value="0,6,0,0"/>
             <Setter Property="Foreground" Value="#FF6E6E6E"/>
         </Style>
+
+        <convt:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+        <ex:EnumBindingSource x:Key="SubjectsSource" EnumType="{x:Type enums:Subjects}"/>
     </Window.Resources>
 
     <Window.DataContext>
@@ -85,8 +91,14 @@
                               Height="30"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Center"
-                              SelectedIndex="{Binding SelectedSubjectIndex}"
-                              ItemsSource="{Binding Subjects}"/>
+                              SelectedItem="{Binding SelectedSubject}"
+                              ItemsSource="{Binding Source={StaticResource SubjectsSource}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
             </StackPanel>
         </hc:Card>
