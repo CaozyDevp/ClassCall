@@ -25,7 +25,7 @@ namespace ClassCall.Teacher.ViewModels
             get => _selectedSubject;
             set => SetProperty(ref _selectedSubject, value);
         }
-        private Subjects _selectedSubject = Subjects.None;
+        private Subjects _selectedSubject;
 
         public SchoolGrades SelectedGrade
         {
@@ -77,7 +77,7 @@ namespace ClassCall.Teacher.ViewModels
 
             try
             {
-                if (SelectedSubject == Subjects.None)
+                if (SelectedSubject == default)
                 {
                     MessageBox.Show("请选择正确的科目", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -137,7 +137,7 @@ namespace ClassCall.Teacher.ViewModels
                 return false;
             }
 
-            if (SelectedSubject == Subjects.None)
+            if (SelectedSubject == default)
             {
                 MessageBox.Show("请选择科目", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
