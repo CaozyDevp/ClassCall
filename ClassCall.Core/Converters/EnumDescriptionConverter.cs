@@ -1,8 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using ClassCall.Core.Extensions;
 
 namespace ClassCall.Core.Converters
 {
@@ -15,7 +15,7 @@ namespace ClassCall.Core.Converters
         {
             if (value == null)
                 return DependencyProperty.UnsetValue;
-            return GetDescription(value);
+            return EnumExtension.GetDescription(value);
         }
 
         /// <summary>
@@ -27,15 +27,5 @@ namespace ClassCall.Core.Converters
             throw new NotImplementedException();
         }
 
-        private object GetDescription(object value)
-        {
-            var field = value.GetType().GetField(value.ToString());
-            var attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            if (attributes != null && attributes.Length > 0)
-            {
-                return attributes[0] is DescriptionAttribute attr ? attr.Description : value.ToString();
-            }
-            return value.ToString();
-        }
     }
 }

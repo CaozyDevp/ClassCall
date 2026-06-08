@@ -59,6 +59,7 @@
     <Compile Include="Enums\SchoolGrades.cs" />
     <Compile Include="Enums\Subjects.cs" />
     <Compile Include="Extensions\EnumBindingSourceExtension.cs" />
+    <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Interfaces\ISignable.cs" />
     <Compile Include="Messages\ConfirmMessage.cs" />
     <Compile Include="Messages\MessageBase.cs" />
