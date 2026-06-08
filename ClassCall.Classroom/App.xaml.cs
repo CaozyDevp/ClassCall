@@ -1,7 +1,6 @@
-﻿using ClassCall.Classroom.Models;
-using ClassCall.Classroom.Views;
-using ClassCall.Core.EnumExtensions;
+﻿using ClassCall.Classroom.Views;
 using ClassCall.Core.Enums;
+using ClassCall.Core.Extensions;
 using ClassCall.Core.Services;
 using System;
 using System.Windows;
@@ -40,7 +39,7 @@ namespace ClassCall.Classroom
 
         private void ShowMessage(Subjects subject, string teacher, string content)
         {
-            var notifyWindow = new NotifyWindow(teacher, SubjectsExtension.GetName(subject), content);
+            var notifyWindow = new NotifyWindow(teacher, EnumExtension.GetDescription(subject), content);
             notifyWindow.Show();
         }
     }

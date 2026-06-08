@@ -55,7 +55,6 @@
     <Compile Include="Constants\NetConstants.cs" />
     <Compile Include="Constants\SchoolConstants.cs" />
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
-    <Compile Include="EnumExtensions\SubjectsExtension.cs" />
     <Compile Include="Enums\SchoolGrades.cs" />
     <Compile Include="Enums\Subjects.cs" />
     <Compile Include="Extensions\EnumBindingSourceExtension.cs" />
