@@ -4,10 +4,8 @@ namespace ClassCall.Core.Enums
 {
     public enum Subjects
     {
-        [Description("未知")]
-        None = 0,
         [Description("语文")]
-        Chinese,
+        Chinese = 1,
         [Description("数学")]
         Math,
         [Description("英语")]
@@ -37,6 +35,6 @@ namespace ClassCall.Core.Enums
         [Description("心理")]
         Psychology,
         [Description("其他")]
-        Others
+        Others = 100
     }
 }
