@@ -33,7 +33,7 @@ namespace ClassCall.Core.Converters
             var attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
             if (attributes != null && attributes.Length > 0)
             {
-                return attributes[0];
+                return attributes[0] is DescriptionAttribute attr ? attr.Description : value.ToString();
             }
             return value.ToString();
         }
