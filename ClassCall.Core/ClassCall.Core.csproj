@@ -37,6 +37,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +58,7 @@
     <Compile Include="EnumExtensions\SubjectsExtension.cs" />
     <Compile Include="Enums\SchoolGrades.cs" />
     <Compile Include="Enums\Subjects.cs" />
+    <Compile Include="Extensions\EnumBindingSourceExtension.cs" />
     <Compile Include="Interfaces\ISignable.cs" />
     <Compile Include="Messages\ConfirmMessage.cs" />
     <Compile Include="Messages\MessageBase.cs" />
