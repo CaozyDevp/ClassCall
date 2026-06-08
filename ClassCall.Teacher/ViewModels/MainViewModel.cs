@@ -57,8 +57,6 @@ namespace ClassCall.Teacher.ViewModels
 
         public List<string> Classrooms => (List<string>)SchoolConstants.Classrooms;
 
-        public List<string> Grades => (List<string>)SchoolConstants.Grades;
-
         public ICommand BroadcastCommand => new RelayCommand(async _ => await Broadcast());
 
         private async Task Broadcast()
