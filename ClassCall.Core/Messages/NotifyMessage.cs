@@ -8,7 +8,7 @@ namespace ClassCall.Core.Messages
 {
     public class NotifyMessage : MessageBase<NotifyMessage>, ISignable
     {
-        public Subjects Subject { get; set; } = Subjects.None;
+        public Subjects Subject { get; set; }
 
         public string Teacher { get; set; } = string.Empty;
 

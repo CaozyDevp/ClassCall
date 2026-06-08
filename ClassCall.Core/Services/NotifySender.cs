@@ -23,7 +23,7 @@ namespace ClassCall.Core.Services
 
         public string TeacherName { get; set; } = "";
 
-        public Subjects Subject { get; set; } = Subjects.None;
+        public Subjects Subject { get; set; }
 
         public IPAddress Address { get; set; }
 
@@ -113,7 +113,7 @@ namespace ClassCall.Core.Services
                 {
                     var remaining = (int)(endTime - DateTime.UtcNow).TotalMilliseconds;
                     if (remaining <= 0) break;
-                    
+
                     var receiveTask = _udpClient.ReceiveAsync();
                     var timeoutTask = Task.Delay(timeout);
 
