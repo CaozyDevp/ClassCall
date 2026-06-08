@@ -31,7 +31,7 @@ namespace ClassCall.Core.Converters
         {
             var field = value.GetType().GetField(value.ToString());
             var attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            if(attributes == null || attributes.Length == 0)
+            if (attributes != null && attributes.Length > 0)
             {
                 return attributes[0];
             }
